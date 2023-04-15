@@ -249,6 +249,38 @@ const unauthorized = (req, res) => {
   return custom(res, 401, false, null, translate(req, "unauthorized"));
 };
 
+/**
+ * Return 422 Unprocessable Content error
+ * @param { Object } req Request object
+ * @param { Object } res Response object
+ * @returns { Object }
+ */
+const unprocessable_content = (req, res) => {
+  return res.status(422).send(translate(req, "422_error"));
+};
+
+/**
+ * Return 200 OK response with only one data object
+ * @param { Object } req Request object
+ * @param { Object } res Response object
+ * @returns { Object }
+ */
+const success_with_data = (req, res, data) => {
+  return res.status(200).json(data);
+};
+
+/**
+ * Return 200 OK response with array of data object
+ * @param { Object } req Request object
+ * @param { Object } res Response object
+ * @returns { Object }
+ */
+const success_with_datas = (req, res, data) => {
+  return res.status(200).json({
+    data,
+  });
+};
+
 module.exports = {
   custom,
   handleValidationErrors,
@@ -268,4 +300,7 @@ module.exports = {
   log_notification,
   _custom,
   _success,
+  unprocessable_content,
+  success_with_data,
+  success_with_datas
 };
