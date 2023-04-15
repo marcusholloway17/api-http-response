@@ -155,7 +155,9 @@ const badResquest = (req, res) => {
  * @returns { Object }
  */
 const badResquestWithMsg = (res, message) => {
-  return custom(res, 400, false, null, message);
+  return res.status(400).json({
+    errors: message,
+  });
 };
 
 /**
@@ -300,5 +302,5 @@ module.exports = {
   _success,
   unprocessable_content,
   success_with_data,
-  success_with_datas
+  success_with_datas,
 };
