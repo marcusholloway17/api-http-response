@@ -256,7 +256,7 @@ const unauthorized = (req, res) => {
  * @returns { Object }
  */
 const unprocessable_content = (req, res) => {
-  return res.status(422).send(translate(req, "422_error"));
+  return res.status(422).send(translate(res, "422_error"));
 };
 
 /**
