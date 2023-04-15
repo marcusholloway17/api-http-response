@@ -256,26 +256,24 @@ const unauthorized = (req, res) => {
  * @returns { Object }
  */
 const unprocessable_content = (req, res) => {
-  return res.status(422).send(translate(res, "422_error"));
+  return res.status(422).send(translate(req, "422_error"));
 };
 
 /**
  * Return 200 OK response with only one data object
- * @param { Object } req Request object
  * @param { Object } res Response object
  * @returns { Object }
  */
-const success_with_data = (req, res, data) => {
+const success_with_data = (res, data) => {
   return res.status(200).json(data);
 };
 
 /**
  * Return 200 OK response with array of data object
- * @param { Object } req Request object
  * @param { Object } res Response object
  * @returns { Object }
  */
-const success_with_datas = (req, res, data) => {
+const success_with_datas = (res, data) => {
   return res.status(200).json({
     data,
   });
