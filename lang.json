@@ -20,7 +20,7 @@
     "authentication_failed": "Échec d'authentification",
     "message_alreadySent": "Impossible de modifier ce message car il a déjà été envoyé",
     "account_canceled": "Votre compte a bien été supprimé, merci d'avoir utilisé nos services",
-    "422_error": "Unprocessable Content"
+    "422_error": "Contenu non traitable"
   },
   "eng": {
     "successfull_operation": "Operation performed sucessfully",
@@ -43,6 +43,6 @@
     "authentication_failed": "Authentication failed",
     "message_alreadySent": "Unable to edit this message because it has already been sent",
     "account_canceled": "Your account has been successfully deleted, thank you for using our services",
-    "422_error": "Contenu non traitable"
+    "422_error": "Unprocessable Content"
   }
 }
