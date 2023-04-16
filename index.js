@@ -187,7 +187,7 @@ const notFound = (req, res) => {
  * @returns { Object }
  */
 const success = (req, res) => {
-  return custom(res, 201, false, null, translate(req, "successfull_operation"));
+  return custom(res, 200, true, null, translate(req, "successfull_operation"));
 };
 
 /**
