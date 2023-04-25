@@ -222,7 +222,7 @@ const error = async (res, error) => {
         elements: [
           {
             type: "mrkdwn",
-            text: `*ERREUR 500 - ENV ${process.env.NODE_ENV}* \n${error}`,
+            text: `*ERREUR ${error?.code} - ENV ${process.env.NODE_ENV}* \n MESSAGE: ${error?.message}\n CAUSE: ${error?.cause} \n STACK: ${error?.stack}`,
           },
         ],
       },
