@@ -228,7 +228,7 @@ const error = async (res, error) => {
       },
     ],
   });
-  return custom(res, 500, false, null, error);
+  return custom(res, 500, false, null, error?.message);
 };
 
 /**
