@@ -238,7 +238,7 @@ const error = async (res, error) => {
  * @returns { Object }
  */
 const forbidden = (req, res) => {
-  return custom(res, 403, false, null, translate(req, "forbidden"));
+  return res.status(403).send(translate(req, "forbidden"));
 };
 
 /**
@@ -248,7 +248,7 @@ const forbidden = (req, res) => {
  * @returns { Object }
  */
 const unauthorized = (req, res) => {
-  return custom(res, 401, false, null, translate(req, "unauthorized"));
+  return res.status(401).send(translate(req, "unauthorized"));
 };
 
 /**
