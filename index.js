@@ -14,9 +14,9 @@ const slugify = (string) => {
 
 /**
  * handle validation errors
- * @param {Object} req Request object
- * @param {Object} res Response object
- * @returns {Object}
+ * @param {object} req Request object
+ * @param {object} res Response object
+ * @returns {object}
  */
 const handleValidationErrors = (req, res, next) => {
   const errors = validationResult(req);
@@ -29,8 +29,8 @@ const handleValidationErrors = (req, res, next) => {
 
 /**
  * Send notification to
- * @param {*} hook String Slack hook
- * @param {*} content String Content to notify
+ * @param {*} hook string Slack hook
+ * @param {*} content string Content to notify
  */
 const custom_notify = async (hook, content) => {
   if (process.env.ALLOW_NOTIF === "true") {
@@ -67,7 +67,7 @@ const custom_notify = async (hook, content) => {
 
 /**
  * Send error notification to slack channel
- * @param {*} content String Content to notify
+ * @param {*} content string Content to notify
  */
 const error_notification = async (content) => {
   return custom_notify(process.env.ERROR_HOOK, content);
@@ -75,7 +75,7 @@ const error_notification = async (content) => {
 
 /**
  * Send log notification to slack channel
- * @param {*} content String Content to notify
+ * @param {*} content string Content to notify
  */
 const log_notification = async (content) => {
   if (process.env.ALLOW_LOG_NOTIF === "true") {
@@ -85,14 +85,14 @@ const log_notification = async (content) => {
 
 /**
  * Translate reponse message to different language
- * @param { Object } request Request object
- * @param { Object } message message to send
- * @returns { String }
+ * @param { object } request Request object
+ * @param { object } message message to send
+ * @returns { string }
  */
 const translate = (request, message) => {
   const language = handleLanguage(request);
   try {
-    return lang[String(language)][message];
+    return lang[string(language)][message];
   } catch (error) {
     return lang.eng[message];
   }
@@ -100,8 +100,8 @@ const translate = (request, message) => {
 
 /**
  * Handle the language in request query or set to english by default
- * @param { Object } request Request object
- * @returns { String }
+ * @param { object } request Request object
+ * @returns { string }
  */
 const handleLanguage = (request) => {
   return request.query.lang ? request.query.lang : "eng";
@@ -109,12 +109,12 @@ const handleLanguage = (request) => {
 
 /**
  * Return a custom response object
- * @param { Object } response Response Object
+ * @param { object } response Response object
  * @param { Integer } statusCode Http status code
- * @param { Boolean} success True if success and false if error occured
- * @param { Object } data Data to be returned
- * @param { String } message Message to notify
- * @returns { Object } Object
+ * @param { boolean} success True if success and false if error occured
+ * @param { object } data Data to be returned
+ * @param { string } message Message to notify
+ * @returns { object } object
  */
 const custom = (response, statusCode, success, data, message) => {
   return response.status(statusCode).json({
@@ -126,11 +126,11 @@ const custom = (response, statusCode, success, data, message) => {
 
 /**
  * Return a custom response object with only the data to be sended
- * @param { Object } response Response Object
- * @param { Boolean} success True if success and false if error occured
- * @param { Object } data Data to be returned
- * @param { String } message Message to notify
- * @returns { Object } Object
+ * @param { object } response Response object
+ * @param { boolean} success True if success and false if error occured
+ * @param { object } data Data to be returned
+ * @param { string } message Message to notify
+ * @returns { object } object
  */
 const _custom = (response, status, data) => {
   return response.status(status || 200).json({
@@ -140,19 +140,19 @@ const _custom = (response, status, data) => {
 
 /**
  * Return 400 Bad Request error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const badResquest = (req, res) => {
-  return custom(res, 400, false, null, translate(req, "missing_parameters"));
+  return res.status(400).send(translate(req, "missing_parameters"));
 };
 
 /**
  * Return 400 Bad Request response with message
- * @param { Object } res Response object
- * @param { String } message Message to be returned
- * @returns { Object }
+ * @param { object } res Response object
+ * @param { string } message Message to be returned
+ * @returns { object }
  */
 const badResquestWithMsg = (res, message) => {
   return res.status(400).json({
@@ -162,39 +162,39 @@ const badResquestWithMsg = (res, message) => {
 
 /**
  * Return 409 Conflict error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { string }
  */
 const conflict = (req, res) => {
-  return custom(res, 409, false, null, translate(req, "already_exist"));
+  return res.status(409).send(translate(req, "already_exist"));
 };
 
 /**
  * Return 404 Not Found error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { string }
  */
 const notFound = (req, res) => {
-  return custom(res, 404, true, {}, translate(req, "not_found"));
+  return res.status(404).send(translate(req, "not_found"));
 };
 
 /**
  * Return 201 Created response
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const success = (req, res) => {
-  return custom(res, 200, true, null, translate(req, "successfull_operation"));
+  return res.status(200).send(translate(req, "successfull_operation"));
 };
 
 /**
  * Return 201 Created response
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const _success = (res, data) => {
   return _custom(res, 201, data);
@@ -202,9 +202,9 @@ const _success = (res, data) => {
 
 /**
  * Return an error specified at error parameter
- * @param { Object } req Request object
- * @param { String } error error message | object to be returned
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { string } error error message | object to be returned
+ * @returns { object }
  */
 const error = async (res, error) => {
   const dateTime = `${format(new Date(), "dd/MM/yyyy\tHH:mm:ss")}`;
@@ -233,9 +233,9 @@ const error = async (res, error) => {
 
 /**
  * Return 403 Forbidden error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const forbidden = (req, res) => {
   return res.status(403).send(translate(req, "forbidden"));
@@ -243,9 +243,9 @@ const forbidden = (req, res) => {
 
 /**
  * Return 401 Unauthorized error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const unauthorized = (req, res) => {
   return res.status(401).send(translate(req, "unauthorized"));
@@ -253,9 +253,9 @@ const unauthorized = (req, res) => {
 
 /**
  * Return 422 Unprocessable Content error
- * @param { Object } req Request object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } req Request object
+ * @param { object } res Response object
+ * @returns { object }
  */
 const unprocessable_content = (req, res) => {
   return res.status(422).send(translate(req, "422_error"));
@@ -263,8 +263,8 @@ const unprocessable_content = (req, res) => {
 
 /**
  * Return 200 OK response with only one data object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } res Response object
+ * @returns { object }
  */
 const success_with_data = (res, data) => {
   return res.status(200).json(data);
@@ -272,8 +272,8 @@ const success_with_data = (res, data) => {
 
 /**
  * Return 200 OK response with array of data object
- * @param { Object } res Response object
- * @returns { Object }
+ * @param { object } res Response object
+ * @returns { object }
  */
 const success_with_datas = (res, data) => {
   return res.status(200).json({
