@@ -4,6 +4,7 @@
   "description": "An http response module for Nodejs api that support hook notifications and has a lot of shortcuts to return a response. it also support translation",
   "main": "index.js",
   "scripts": {
+    "test": "node test",
     "publish": "npm publish",
     "version:patch": "npm version patch",
     "version:minor": "npm version minor",
