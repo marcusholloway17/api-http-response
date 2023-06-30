@@ -86,14 +86,13 @@ const log_notification = async (content) => {
 /**
  * Translate reponse message to different language
  * @param { object } request Request object
- * @param { object } message message to send
+ * @param { string } message message to send
  * @returns { string }
  */
 const translate = (request, message) => {
-  const language = handleLanguage(request);
   try {
-    return lang[string(language)][message];
-  } catch (error) {
+    return lang[handleLanguage(request)][message];
+  } catch (err) {
     return lang.eng[message];
   }
 };
@@ -104,7 +103,7 @@ const translate = (request, message) => {
  * @returns { string }
  */
 const handleLanguage = (request) => {
-  return request.query.lang ? request.query.lang : "eng";
+  return !request?.query["lang"] ? "eng" : request?.query["lang"];
 };
 
 /**
@@ -202,8 +201,8 @@ const _success = (res, data) => {
 
 /**
  * Return an error specified at error parameter
- * @param { object } req Request object
- * @param { string } error error message | object to be returned
+ * @param { object } res Response object
+ * @param { object } error error object throwed
  * @returns { object }
  */
 const error = async (res, error) => {
