@@ -144,7 +144,14 @@ const _custom = (response, status, data) => {
  * @returns { object }
  */
 const badResquest = (req, res) => {
-  return res.status(400).send(translate(req, "missing_parameters"));
+  return res.status(400).send({
+    errors: [
+      {
+        msg: translate(req, "missing_parameters"),
+        location: "params",
+      },
+    ],
+  });
 };
 
 /**
@@ -166,7 +173,14 @@ const badResquestWithMsg = (res, message) => {
  * @returns { string }
  */
 const conflict = (req, res) => {
-  return res.status(409).send(translate(req, "already_exist"));
+  return res.status(409).send({
+    errors: [
+      {
+        msg: translate(req, "already_exist"),
+        location: "body",
+      },
+    ],
+  });
 };
 
 /**
@@ -176,7 +190,14 @@ const conflict = (req, res) => {
  * @returns { string }
  */
 const notFound = (req, res) => {
-  return res.status(404).send(translate(req, "not_found"));
+  return res.status(404).send({
+    errors: [
+      {
+        msg: translate(req, "not_found"),
+        location: "params",
+      },
+    ],
+  });
 };
 
 /**
@@ -186,7 +207,10 @@ const notFound = (req, res) => {
  * @returns { object }
  */
 const success = (req, res) => {
-  return res.status(200).send(translate(req, "successfull_operation"));
+  return res.status(200).send({
+    success: true,
+    msg: translate(req, "successfull_operation"),
+  });
 };
 
 /**
@@ -227,7 +251,16 @@ const error = async (res, error) => {
       },
     ],
   });
-  return custom(res, 500, false, null, error?.message);
+  return res.status(500).json({
+    errors: [
+      {
+        code: error?.code,
+        msg: error?.message,
+        stack: error?.stack,
+        syscall: error?.syscall,
+      },
+    ],
+  });
 };
 
 /**
