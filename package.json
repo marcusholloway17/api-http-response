@@ -1,5 +1,5 @@
 {
-  "name": "api-http-response",
+  "name": "@marcusholloway17/api-http-response",
   "version": "1.0.13",
   "description": "An http response module for Nodejs api that support hook notifications and has a lot of shortcuts to return a response. it also support translation",
   "main": "index.js",
@@ -17,5 +17,8 @@
     "axios": "^1.3.4",
     "date-fns": "^2.29.3",
     "express-validator": "^6.15.0"
+  },
+  "publishConfig": {
+    "@marcusholloway17:registry": "https://npm.pkg.github.com"
   }
 }
