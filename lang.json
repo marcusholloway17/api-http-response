@@ -5,7 +5,7 @@
     "not_found": "Aucun élément trouvé",
     "404_account": "Aucun compte trouvé",
     "401_account": "Votre compte a été suspendu, veuillez contacter le service support si vous pensez que c'est une erreur",
-    "incorrect_username_or_password": "Username or password incorrect",
+    "incorrect_username_or_password": "Nom d'utilisateur ou mot de passe incorrect",
     "password_do_not_match": "les mots de passe ne correspondent pas",
     "access_denied": "Accès refusé",
     "invalid_otp_code": "Code OTP invalide",
